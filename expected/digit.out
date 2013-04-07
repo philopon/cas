@@ -1,0 +1,18 @@
+SELECT cas_first('42221-12-5'::cas);
+ cas_first 
+-----------
+     42221
+(1 row)
+
+SELECT cas_second('42221-12-5'::cas);
+ cas_second 
+------------
+         12
+(1 row)
+
+SELECT cas_checkdigit('42221-12-5'::cas);
+ cas_checkdigit 
+----------------
+              5
+(1 row)
+

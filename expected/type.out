@@ -1,0 +1,50 @@
+CREATE EXTENSION CAS;
+CREATE TABLE test1 (a CAS);
+CREATE INDEX test2_cas_index ON test1(a);
+INSERT INTO test1 VALUES ('12552-52-1');
+INSERT INTO test1 VALUES ('52-12-1');
+INSERT INTO test1 VALUES ('4312552-52-1');
+INSERT INTO test1 VALUES ('12552-52-');
+ERROR:  invalid input syntax for CAS: "12552-52-"
+LINE 1: INSERT INTO test1 VALUES ('12552-52-');
+                                  ^
+INSERT INTO test1 VALUES ('12552-2-1');
+INSERT INTO test1 VALUES ('1-52-1');
+INSERT INTO test1 VALUES ('11112552-52-1');
+ERROR:  invalid input syntax for CAS: "11112552-52-1"
+LINE 1: INSERT INTO test1 VALUES ('11112552-52-1');
+                                  ^
+INSERT INTO test1 VALUES ('12552-152-1');
+ERROR:  invalid input syntax for CAS: "12552-152-1"
+LINE 1: INSERT INTO test1 VALUES ('12552-152-1');
+                                  ^
+INSERT INTO test1 VALUES ('12552-52-11');
+INSERT INTO test1 VALUES ('57-09-0');
+SELECT * FROM test1;
+      a       
+--------------
+ 12552-52-1
+ 52-12-1
+ 4312552-52-1
+ 12552-02-1
+ 1-52-1
+ 12552-52-1
+ 57-09-0
+(7 rows)
+
+SELECT '53-12-54'::cas;
+   cas   
+---------
+ 53-12-5
+(1 row)
+
+SELECT '431-1-5'::cas;
+   cas    
+----------
+ 431-01-5
+(1 row)
+
+SELECT '53731473-12-4'::cas;
+ERROR:  invalid input syntax for CAS: "53731473-12-4"
+LINE 1: SELECT '53731473-12-4'::cas;
+               ^

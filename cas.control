@@ -1,0 +1,4 @@
+comment = 'CAS Register Number data type'
+default_version = '0.1.0'
+module_pathname = '$libdir/cas'
+relocatable = true
